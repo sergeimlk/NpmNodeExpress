@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAllBeers, getBeer } from '../controllers/beerController';
+import { getAllBeers, getBeer } from '../controllers/beersController';
 
 export const router = Router();
 
