@@ -11,11 +11,16 @@ const options = {
       version: '1.0.0',
     },
   },
-  apis: ['./routes/*.js'], // Chemin vers vos fichiers de routes
+  apis: ['./src/routes/*.ts'], // Chemin vers vos fichiers de routes
 };
 
 const specs = swaggerJsdoc(options);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
+// Route racine
+app.get('/', (req, res) => {
+  res.send('Bienvenue à l\'API. Visitez /api-docs pour la documentation.');
+});
 
 // Exemple de route
 app.get('/api/hello', (req, res) => {
