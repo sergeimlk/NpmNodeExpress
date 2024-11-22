@@ -1,6 +1,7 @@
-const swaggerUi = require('swagger-ui-express');
-const swaggerJsdoc = require('swagger-jsdoc');
-const express = require('express');
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
+import express from 'express';
+
 const app = express();
 
 const options = {
@@ -30,3 +31,5 @@ app.get('/api/hello', (req, res) => {
 app.listen(3000, () => {
   console.log('Server is running on http://localhost:3000');
 });
+
+export const swaggerDocs = {}; // Add the actual swaggerDocs content here

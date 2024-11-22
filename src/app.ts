@@ -1,6 +1,8 @@
 import express, { Application, Request, Response } from 'express';
 import { router as beersRoutes } from './routes/beers';
 import { router as breweriesRoutes } from './routes/breweries';
+import swaggerUi from "swagger-ui-express";
+import { swaggerDocs } from "./swagger";
 
 const app: Application = express();
 const version = 'v1';
@@ -14,5 +16,6 @@ app.get('/', (req: Request, res: Response) => {
 
 app.use(`${path}/beers`, beersRoutes);
 app.use(`${path}/breweries`, breweriesRoutes);
+app.use(`/api-docs`, swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 export default app;
