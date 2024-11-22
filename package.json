@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nodemon",
     "dev": "ts-node-dev src/server.ts",
-    "build": "tsc",
+    "clean": "rm -rf dist",
+    "build": "npm run clean && npx tsc",
     "serve": "node dist/app.js"
   },
   "keywords": [],
