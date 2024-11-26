@@ -1,8 +1,8 @@
 import express, { Application, Request, Response } from 'express';
 import { router as beersRoutes } from './routes/beers';
-import { router as breweriesRoutes } from './routes/breweries';
+import { router as breweriesRoutes } from './routes/breweriesRouter';
 import swaggerUi from "swagger-ui-express";
-import { swaggerDocs } from "./swagger";
+import { swaggerDocs } from "./docs/swagger";
 
 const app: Application = express();
 const version = 'v1';

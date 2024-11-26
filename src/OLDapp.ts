@@ -1,7 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import { router as beersRoutes } from "./routes/beers";
-import { router as breweriesRoutes } from "./routes/breweries";
-import { getBreweries, getBreweryById } from './controllers/breweries';
+import { router as breweriesRoutes } from "./routes/breweriesRouter";
+import { getBreweries, getBreweryById } from './controllers/breweriesController';
 
 const app: Application = express();
 const version = "v1";
