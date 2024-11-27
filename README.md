@@ -19,7 +19,7 @@ Ce projet fournit une API permettant de gérer des brasseries. Voici un guide si
 Téléchargez le dépôt sur votre machine locale en exécutant ces commandes dans un terminal :
 
 ```bash
-git clone <URL_DU_REPO>
+git clone <https://github.com/sergeimlk/NpmNodeExpress.git>
 cd <NOM_DU_PROJET>
 ```
 
