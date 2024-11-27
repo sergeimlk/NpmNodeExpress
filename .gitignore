@@ -1,2 +1,9 @@
-tuto
 .env
+
+tuto
+
+node_modules/
+
+dist/
+
+DS_Store

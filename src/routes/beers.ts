@@ -1,9 +1,14 @@
-import { Router } from 'express';
-import { getAllBeers, getBeer } from '../controllers/beersController';
-
+import { Router } from "express";
 export const router = Router();
 
-router.get('/', getAllBeers);
-router.get('/:id', getBeer);
+import { beersController } from "../controllers/beersController";
+// import { postBeersController } from "../controllers/beersController";
+// import { putBeersController } from "../controllers/beersController";
+// import { deleteBeersController } from "../controllers/beersController";
+// import { getDetailsBeersController } from "../controllers/beersController";
 
-// Ajoutez d'autres routes pour les requêtes HTTP nécessaires
+router.get('/', beersController.get);
+// router.post('/', postBeersController.post);
+// router.put('/', putBeersController.put);
+// router.delete('/:id', deleteBeersController.delete);
+// router.get('/:id', getDetailsBeersController.get);
