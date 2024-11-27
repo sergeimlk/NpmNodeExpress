@@ -6,7 +6,7 @@ services:
     container_name: zythologue-db
     restart: always
     environment:
-      POSTGRES_USER: zythologue_user
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: securepassword
       POSTGRES_DB: postgres
     ports:
@@ -25,7 +25,7 @@ volumes:
 # 3. Use the following connection details:
 #    - Host: localhost
 #    - Port: 5432
-#    - Database: zythologue
-#    - Username: zythologue_user
+#    - Database: postgres
+#    - Username: postgres
 #    - Password: securepassword
 # 4. Test the connection and save it.

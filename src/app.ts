@@ -1,5 +1,5 @@
 import express, { Application, Request, Response } from 'express';
-import { router as beersRoutes } from './routes/beers';
+import { router as beersRoutes } from './routes/beersRouter';
 import { router as breweriesRoutes } from './routes/breweriesRouter';
 import swaggerUi from "swagger-ui-express";
 import { swaggerDocs } from "./docs/swagger";
