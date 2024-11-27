@@ -9,7 +9,7 @@ INSERT INTO Users (first_name, email, password) VALUES
 
 -- Insert data into Breweries table
 INSERT INTO Breweries (name, country, region, address, facebook_link) VALUES
-('Etxeko Bob\'s Beer', 'France', 'Pays Basque', '123 Rue de la Bière, Hasparren', 'https://www.facebook.com/etxekobobsbeer'),
+('Etxeko Bobs Beer', 'France', 'Pays Basque', '123 Rue de la Bière, Hasparren', 'https://www.facebook.com/etxekobobsbeer'),
 ('Brasserie Belharra', 'France', 'Pays Basque', '456 Avenue de la Bière, Bayonne', 'https://www.facebook.com/brasseriebelharra'),
 ('Brasserie des Docks', 'France', 'Pays Basque', '789 Boulevard de la Bière, Biarritz', 'https://www.facebook.com/brasseriedesdocks');
 
@@ -29,7 +29,7 @@ INSERT INTO Categories (name) VALUES
 
 -- Insert data into Beers table
 INSERT INTO Beers (name, description, abv, type, color, release_date, id_brewery) VALUES
-('Bob\'s Lager', 'Une lager légère et rafraîchissante', 4.5, 'Lager', 'Dorée', '2023-01-01', 1),  -- Couleur in French
+('Bobs Lager', 'Une lager légère et rafraîchissante', 4.5, 'Lager', 'Dorée', '2023-01-01', 1),  -- Couleur in French
 ('Belharra Ale', 'Une ale douce et fruitée', 5.2, 'Ale', 'Ambrée', '2023-02-01', 2),   -- Couleur in French
 ('Docks Stout', 'Un stout fort et robuste', 6.8, 'Stout', 'Noire', '2023-03-01', 3),    -- Couleur in French
 ('IPA Basque', 'Une IPA houblonnée et savoureuse', 6.0, 'IPA', 'Dorée', '2023-04-01', 1); -- Couleur in French
