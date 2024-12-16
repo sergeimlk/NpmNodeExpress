@@ -3,6 +3,8 @@ import express, { Request, Response } from 'express';
 import beersRoutes from './routes/beers';
 import breweriesRoutes from './routes/breweries';
 import { getBreweries, getBreweryById } from './controllers/breweries';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocs from './config/swaggerConfig'; // Update the swagger config import to use the new TypeScript file
 
 // Création de l'application Express
 const app = express();
@@ -75,9 +77,13 @@ app.get('/', (req: Request, res: Response) => {
     `);
 });
 
+// Configuration Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
 // Démarrage du serveur
 app.listen(port, () => {
   console.log(`Serveur démarré sur le port ${port}`);
+  console.log('Documentation Swagger disponible sur http://localhost:3000/api-docs');
 });
 
 const path = '/api'; // Définition du préfixe de chemin
@@ -88,4 +94,5 @@ app.use(`${path}/breweries`, breweriesRoutes);
 // Montage des routes sur les chemins spécifiques
 app.get(`${path}/breweries`, getBreweries);
 app.get(`${path}/breweries/:id`, getBreweryById);
+
 export default app;
