@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { query } from "../config/db";
 // import { Beers } from "../models/beers";
 
 // export const getBeersController = (req: Request, res: Response) => {
@@ -8,8 +9,16 @@ import { Request, Response } from "express";
 //     res.status(200).json({ data: "Liste des bières !" });
 // };
 
-export const getBeers = (req: Request, res: Response) => {
+export const getBeers = async(req: Request, res: Response) => {
     res.status(200).json({ message: "Liste des bières" });
+    try {
+        const result = await query('SELECT * FROM breweries');
+        res.json(result.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch beers' });
+    }
+
 };
 
 export const getBeerById = (req: Request, res: Response) => {

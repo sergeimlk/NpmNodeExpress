@@ -3,6 +3,8 @@ import express, { Request, Response } from 'express';
 import beersRoutes from './routes/beers';
 import breweriesRoutes from './routes/breweries';
 import { getBreweries, getBreweryById } from './controllers/breweries';
+import beers from './routes/beers';
+import breweries from './routes/breweries';
 
 // Création de l'application Express
 const app = express();
@@ -10,7 +12,9 @@ const port = process.env.PORT || 3000;
 
 // Configuration des middlewares de base
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
+
+app.use(beersRoutes);
 
 // Définition de la route racine
 app.get('/', (req: Request, res: Response) => {
@@ -80,12 +84,10 @@ app.listen(port, () => {
   console.log(`Serveur démarré sur le port ${port}`);
 });
 
-const path = '/api'; // Définition du préfixe de chemin
-
-app.use(`${path}/beers`, beersRoutes);
-app.use(`${path}/breweries`, breweriesRoutes);
-
-// Montage des routes sur les chemins spécifiques
-app.get(`${path}/breweries`, getBreweries);
-app.get(`${path}/breweries/:id`, getBreweryById);
 export default app;
+
+// const path = '/api'; // Définition du préfixe de chemin
+
+// Routes de l'API
+// app.use(`${path}/beers`, beers);
+// app.use(`${path}/breweries`, breweries);
