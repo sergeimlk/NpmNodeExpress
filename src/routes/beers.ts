@@ -1,14 +1,9 @@
-import { Router } from "express";
-export const router = Router();
+import express from 'express';
+import { getBeers, getBeerById } from '../controllers/beers';
 
-import { beersController } from "../controllers/beersController";
-// import { postBeersController } from "../controllers/beersController";
-// import { putBeersController } from "../controllers/beersController";
-// import { deleteBeersController } from "../controllers/beersController";
-// import { getDetailsBeersController } from "../controllers/beersController";
+const router = express.Router();
 
-router.get('/', beersController.get);
-// router.post('/', postBeersController.post);
-// router.put('/', putBeersController.put);
-// router.delete('/:id', deleteBeersController.delete);
-// router.get('/:id', getDetailsBeersController.get);
+router.get('/', getBeers);
+router.get('/:id', getBeerById);
+
+export default router;
