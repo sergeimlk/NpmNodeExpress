@@ -5,7 +5,7 @@ FROM node:14
 WORKDIR /app
 
 # Copier le fichier package.json et package-lock.json dans le répertoire de travail
-COPY package*.json ./
+COPY package*.json package-lock.json ./
 
 # Installer les dépendances du projet
 RUN npm install
@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Exposer le port sur lequel l'application va écouter
-EXPOSE 3000
+EXPOSE 3001
 
 # Commande pour démarrer l'application
 CMD ["npm", "start"]

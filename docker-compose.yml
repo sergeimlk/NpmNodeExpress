@@ -15,8 +15,24 @@ services:
       - postgres_data:/var/lib/postgresql/data # Persist the database data
       - ./db-scripts:/docker-entrypoint-initdb.d # Load the database schema
 
+api:
+      build: ./api
+      ports:
+        - "3000:3000"
+      depends_on:
+        - db
+      volumes:
+        - ./api:/app
+      command: ["npm", "start"]
+      
+
 volumes:
   postgres_data:
+  - ./api:/app
+  - /app/node_modules
+
+
+  # docker-compose up --build -d
 
 
 # To connect to the PostgreSQL database using DBeaver:
