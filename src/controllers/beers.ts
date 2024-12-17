@@ -14,7 +14,7 @@ export const getBeers = async(req: Request, res: Response) => {
     try {
         const result = await query(`SELECT * FROM breweries`);
         res.json(result.rows);
-        console.log(result.rows, "helooo");
+        // console.log(result.rows, "helooo");
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Failed to fetch beers' });

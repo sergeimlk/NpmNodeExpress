@@ -1,40 +1,20 @@
--- 03-CREATE-triggers.sql
+-- Création de la fonction de validation de l'ABV
+CREATE OR REPLACE FUNCTION validate_abv()
+-- La fonction retourne un déclencheur (TRIGGER)
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Vérifier que l'ABV est compris entre 0 et 20
+    IF NEW.abv < 0 OR NEW.abv > 20 THEN
+        RAISE EXCEPTION 'ABV (taux d''alcool) doit être entre 0 et 20. Valeur fournie : %', NEW.abv;
+    END IF;
 
--- Trigger for Users table
-CREATE TRIGGER users_updated_at_trigger BEFORE UPDATE ON Users
-FOR EACH ROW EXECUTE PROCEDURE update_updated_at_column();
+    -- Si tout est correct, continuer l'opération
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
 
--- Trigger for Beers table
-CREATE TRIGGER beers_updated_at_trigger BEFORE UPDATE ON Beers
-FOR EACH ROW EXECUTE PROCEDURE update_updated_at_column();
-
--- Trigger for Categories table
-CREATE TRIGGER categories_updated_at_trigger BEFORE UPDATE ON Categories
-FOR EACH ROW EXECUTE PROCEDURE update_updated_at_column();
-
--- Trigger for Breweries table
-CREATE TRIGGER breweries_updated_at_trigger BEFORE UPDATE ON Breweries
-FOR EACH ROW EXECUTE PROCEDURE update_updated_at_column();
-
--- Trigger for Reviews table
-CREATE TRIGGER reviews_updated_at_trigger BEFORE UPDATE ON Reviews
-FOR EACH ROW EXECUTE PROCEDURE update_updated_at_column();
-
--- Trigger for Favorites table
-CREATE TRIGGER favorites_updated_at_trigger BEFORE UPDATE ON Favorites
-FOR EACH ROW EXECUTE PROCEDURE update_updated_at_column();
-
--- Trigger for Photos table
-CREATE TRIGGER photos_updated_at_trigger BEFORE UPDATE ON Photos
-FOR EACH ROW EXECUTE PROCEDURE update_updated_at_column();
-
--- Trigger for Ingredients table
-CREATE TRIGGER ingredients_updated_at_trigger BEFORE UPDATE ON Ingredients
-FOR EACH ROW EXECUTE PROCEDURE update_updated_at_column();
-content_copy
-Use code with caution.
-SQL
-
-
-
-
+-- Création du déclencheur
+CREATE TRIGGER check_abv
+BEFORE INSERT OR UPDATE ON Beers
+FOR EACH ROW
+EXECUTE FUNCTION validate_abv();
