@@ -9,12 +9,10 @@ import { query } from "../config/db";
 //     res.status(200).json({ data: "Liste des bières !" });
 // };
 
-export const getBeers = async(req: Request, res: Response) => {
-    // res.status(200).json({ message: "Liste des bières" });
+export const getBeers = async (req: Request, res: Response) => {
     try {
-        const result = await query(`SELECT * FROM breweries`);
+        const result = await query(`SELECT * FROM beers`);
         res.json(result.rows);
-        // console.log(result.rows, "helooo");
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Failed to fetch beers' });
@@ -22,29 +20,82 @@ export const getBeers = async(req: Request, res: Response) => {
 
 };
 
-// export const getBeerById = (req: Request, res: Response) => {
-//     const { id } = req.params;
-//     res.status(200).json({ message: `Détails de la bière ${id}` });
-// };
+export const getBeerById = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params;
+        const result = await query(
+            `SELECT *
+             FROM beers
+             WHERE beers.id_beer = $1`,
+            [id]
+        );
 
-// export const beersController = {
-//     get: (req: Request, res: Response) => {
-//         try {
-//             // récupérer la co de la BDD
-//             // const data = select * from beers
-//             // const data = [];
-//             res.status(200).json({ data: "ici toutes les data" });
-//         } catch (error) {
-//             res.status(200).json({ msg: error, message: "y a une erreur" });
-//         }
-//     },
-//     post: (req: Request, res: Response) => {
-//         res.status(201).json({ data: "ajout de la bière !" });
-//     },
-//     put: (req: Request, res: Response) => {
-//         res.status(200).json({ data: "modification de la bière !" });
-//     },
-//     delete: (req: Request, res: Response) => {
-//         res.status(200).json({ data: "suppression de la bière !" });
-//     },
-// };
+        if (result.rowCount === 0) {
+            res.status(404).json({ error: 'Beer not found' });
+            return;
+        }
+
+        res.json(result.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch beer' });
+    }
+};
+
+export const createBeer = async (req: Request, res: Response): Promise<void> => {
+    try {
+        // Validation des données d'entrée
+        const { name, description, abv, price, id_brewery } = req.body;
+        if (!name || !description || !abv || !price || !id_brewery) {
+            res.status(400).json({ error: 'Missing required fields: name, description, abv, price, id_brewery' });
+            return;
+        }
+
+        // Insertion dans la base de données
+        const result = await query(
+            `INSERT INTO beers (name, description, abv, price, id_brewery)
+             VALUES ($1, $2, $3, $4, $5)
+             RETURNING *`,
+            [name, description, abv, price, id_brewery]
+        );
+
+        // Retourner la bière créée
+        res.status(201).json(result.rows[0]);
+    } catch (error: any) {
+        console.error(error);
+
+        // Vérification si l'erreur provient de la base de données
+        if (error.code === '23503') {
+            // Code d'erreur PostgreSQL pour violation de contrainte de clé étrangère
+            res.status(400).json({ error: 'Invalid brewery ID' });
+        } else {
+            res.status(500).json({ error: 'Failed to create beer' });
+        }
+    }
+};
+
+export const updateBeer = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { id } = req.params
+        const { name, description, abv, price} = req.body;
+
+        const result = await query(
+            `UPDATE beers
+             SET name=$1, description=$2, abv=$3, price=$4
+             WHERE id_beer=$5
+             RETURNING *`,
+            [name, description, abv, price, id]
+        );
+
+        if (result.rowCount === 0) {
+            res.status(404).json({ error: 'Beer not found' });
+            return;
+        }
+
+        res.json(result.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to update beer' });
+    };
+
+};
