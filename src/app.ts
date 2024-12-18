@@ -8,7 +8,6 @@ import breweries from './routes/breweries';
 
 // Création de l'application Express
 const app = express();
-const port = process.env.PORT || 3000;
 
 // Configuration des middlewares de base
 app.use(express.json());
@@ -79,10 +78,7 @@ app.get('/', (req: Request, res: Response) => {
     `);
 });
 
-// Démarrage du serveur
-app.listen(port, () => {
-  console.log(`Serveur démarré sur le port ${port}`);
-});
+
 
 export default app;
 

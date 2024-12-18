@@ -1,33 +1,83 @@
 import { Request, Response } from 'express';
+import { query } from '../config/db';
 
-// Controller for breweries
-// Get all breweries
-export const getBreweries = async (req: Request, res: Response): Promise<void> => {
+export const getBreweries = async (req: Request, res: Response) => {
     try {
-        // Placeholder for fetching breweries from the database
-        const breweries = [
-            { id: 1, name: 'Brewery One', location: 'Location One', established: 2000 },
-            { id: 2, name: 'Brewery Two', location: 'Location Two', established: 2005 }
-        ];
-        res.status(200).json(breweries);
+        const result = await query('SELECT * FROM breweries');
+        res.json(result.rows);
     } catch (error) {
-        res.status(500).json({ message: (error as Error).message });
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch breweries' });
     }
 };
 
-// Get a single brewery by ID
-export const getBreweryById = async (req: Request, res: Response): Promise<void> => {
+export const createBrewery = async (req: Request, res: Response) => {
     try {
-        // Placeholder for fetching a single brewery from the database
-        const breweryId = parseInt(req.params.id, 10);
-        const brewery = { id: breweryId, name: 'Brewery One', location: 'Location One', established: 2000 };
-
-        if (brewery) {
-            res.status(200).json(brewery);
-        } else {
-            res.status(404).json({ message: 'Brewery not found' });
-        }
+        const { name, location, established, website } = req.body;
+        const result = await query(
+            'INSERT INTO breweries (id_brewery, name, location, established, website) VALUES (gen_random_uuid(), $1, $2, $3, $4) RETURNING *',
+            [name, location, established, website]
+        );
+        res.status(201).json(result.rows[0]);
     } catch (error) {
-        res.status(500).json({ message: (error as Error).message });
+        console.error(error);
+        res.status(500).json({ error: 'Failed to create brewery' });
+    }
+};
+
+export const getBreweryById = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const result = await query('SELECT * FROM breweries WHERE id_brewery = $1', [id]);
+
+        if (result.rowCount === 0) {
+            res.status(404).json({ error: 'Brewery not found' });
+            return;
+        }
+
+        res.json(result.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to fetch brewery' });
+    }
+};
+
+export const updateBrewery = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const { name, country } = req.body;
+
+        const result = await query(
+            'UPDATE breweries SET name = $1, country = $2 WHERE id_brewery = $3 RETURNING *',
+            [name, country, id]
+        );
+
+        if (result.rowCount === 0) {
+            res.status(404).json({ error: 'Brewery not found' });
+            return;
+        }
+
+        res.json(result.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to update brewery' });
+    }
+};
+
+export const deleteBrewery = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+
+        const result = await query('DELETE FROM breweries WHERE id_brewery = $1 RETURNING *', [id]);
+
+        if (result.rowCount === 0) {
+            res.status(404).json({ error: 'Brewery not found' });
+            return;
+        }
+
+        res.json({ message: 'Brewery deleted successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to delete brewery' });
     }
 };

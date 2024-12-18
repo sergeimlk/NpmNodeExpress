@@ -1,9 +1,18 @@
 import express from 'express';
-import { getBreweries, getBreweryById } from '../controllers/breweries';
+import {
+    getBreweries,
+    createBrewery,
+    getBreweryById,
+    updateBrewery,
+    deleteBrewery
+} from '../controllers/breweries';
 
 const router = express.Router();
 
-router.get('/', getBreweries);
-router.get('/:id', getBreweryById);
+router.get('/breweries', getBreweries);
+router.get('/breweries/:id', getBreweryById);
+router.post('/breweries', createBrewery);
+router.put('/breweries/:id', updateBrewery);
+router.delete('/breweries/:id', deleteBrewery);
 
 export default router;
