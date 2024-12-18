@@ -82,8 +82,8 @@ app.get('/', (req: Request, res: Response) => {
 
 export default app;
 
-// const path = '/api'; // Définition du préfixe de chemin
+const path = '/api'; // Définition du préfixe de chemin
 
 // Routes de l'API
-// app.use(`${path}/beers`, beers);
-// app.use(`${path}/breweries`, breweries);
+app.use(`${path}/beers`, beers);
+app.use(`${path}/breweries`, breweries);

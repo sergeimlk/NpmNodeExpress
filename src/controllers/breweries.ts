@@ -11,19 +11,6 @@ export const getBreweries = async (req: Request, res: Response) => {
     }
 };
 
-export const createBrewery = async (req: Request, res: Response) => {
-    try {
-        const { name, location, established, website } = req.body;
-        const result = await query(
-            'INSERT INTO breweries (id_brewery, name, location, established, website) VALUES (gen_random_uuid(), $1, $2, $3, $4) RETURNING *',
-            [name, location, established, website]
-        );
-        res.status(201).json(result.rows[0]);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Failed to create brewery' });
-    }
-};
 
 export const getBreweryById = async (req: Request, res: Response) => {
     try {
@@ -39,6 +26,21 @@ export const getBreweryById = async (req: Request, res: Response) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Failed to fetch brewery' });
+    }
+};
+
+
+export const createBrewery = async (req: Request, res: Response) => {
+    try {
+        const { name, country } = req.body;
+        const result = await query(
+            'INSERT INTO breweries (name, country) VALUES ($1, $2) RETURNING *',
+            [name, country]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to create brewery' });
     }
 };
 
