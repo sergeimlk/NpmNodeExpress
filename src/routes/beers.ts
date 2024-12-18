@@ -4,12 +4,11 @@ import { getBeers, getBeerById, createBeer, updateBeer, deleteBeer} from '../con
 const router = express.Router();
 
 
-router.get('/beers', getBeers);
-router.get('/beers/:id', getBeerById);
-router.post('/beers', createBeer);
-router.put('/beers/:id', updateBeer);
-router.delete('/beers/:id', deleteBeer);
-
+router.get('/', getBeers);
+router.get('/:id', getBeerById);
+router.post('/', createBeer);
+router.put('/:id', updateBeer);
+router.delete('/:id', deleteBeer);
 
 
 export default router;

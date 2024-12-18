@@ -76,7 +76,7 @@ export const updateBeer = async (req: Request, res: Response): Promise<void> => 
         const result = await query(
             `UPDATE beers
              SET name=$1, description=$2, abv=$3, price=$4
-WHERE id_beer=$2
+WHERE id_beer=$5
              RETURNING *`,
             [name, description, abv, price, id]
         );

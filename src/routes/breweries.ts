@@ -9,10 +9,10 @@ import {
 
 const router = express.Router();
 
-router.get('/breweries', getBreweries);
-router.get('/breweries/:id', getBreweryById);
-router.post('/breweries', createBrewery);
-router.put('/breweries/:id', updateBrewery);
-router.delete('/breweries/:id', deleteBrewery);
+router.get('/', getBreweries);
+router.get('/:id', getBreweryById);
+router.post('/', createBrewery);
+router.put('/:id', updateBrewery);
+router.delete('/:id', deleteBrewery);
 
 export default router;
