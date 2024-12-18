@@ -2,9 +2,6 @@
 import express, { Request, Response } from 'express';
 import beersRoutes from './routes/beers';
 import breweriesRoutes from './routes/breweries';
-import { getBreweries, getBreweryById } from './controllers/breweries';
-import beers from './routes/beers';
-import breweries from './routes/breweries';
 
 // Création de l'application Express
 const app = express();
@@ -13,7 +10,17 @@ const app = express();
 app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 
-app.use(beersRoutes);
+// Register routes
+const path = '/api'; // Define the path prefix
+app.use(`${path}/beers`, beersRoutes);
+app.use(`${path}/breweries`, breweriesRoutes); // Register breweries routes
+
+// Define the root route
+app.get('/', (req, res) => {
+    res.send('Welcome to the API');
+});
+
+export default app;
 
 // Définition de la route racine
 app.get('/', (req: Request, res: Response) => {
@@ -78,12 +85,3 @@ app.get('/', (req: Request, res: Response) => {
     `);
 });
 
-
-
-export default app;
-
-const path = '/api'; // Définition du préfixe de chemin
-
-// Routes de l'API
-app.use(`${path}/beers`, beers);
-app.use(`${path}/breweries`, breweries);

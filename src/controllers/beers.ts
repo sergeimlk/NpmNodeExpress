@@ -1,13 +1,6 @@
 import { Request, Response } from "express";
 import { query } from "../config/db";
-// import { Beers } from "../models/beers";
 
-// export const getBeersController = (req: Request, res: Response) => {
-//     res.status(200).json({ data: "Liste des bières !" });
-// };
-// export const postBeersController = (req: Request, res: Response) => {
-//     res.status(200).json({ data: "Liste des bières !" });
-// };
 
 export const getBeers = async (req: Request, res: Response) => {
     try {
