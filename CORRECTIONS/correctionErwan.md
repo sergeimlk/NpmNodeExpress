@@ -23,14 +23,14 @@
 ## 📋 Détails des Tests CRUD
 
 ### GET
-✅ - URL : `http://localhost:3000/api/bieres`
-✅ - URL : `http://localhost:3000/api/brasseries`
+✅ - URL : `http://localhost:3000/api/beers`
+✅ - URL : `http://localhost:3000/api/breweries`
 
 ### POST
-✅ - URL : `http://localhost:3000/api/bieres`
-✅ - URL : `http://localhost:3000/api/brasseries`
+✅ - URL : `http://localhost:3000/api/beers`
+✅ - URL : `http://localhost:3000/api/breweries`
 ✅ - Body (JSON) :
-  ```json
+
   {
     "nom": "Nom de la bière",
     "brasserie": "Nom de la brasserie",
