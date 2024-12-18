@@ -35,15 +35,17 @@ DB_NAME=votre_base_de_donnees
 
 ## Résultats de la commande `docker-compose up --build`
 
+```bash
+docker-compose up --build
+```
+
 Voici les résultats que vous devriez obtenir après avoir exécuté la commande :
 
 ![Image 1](DOCKER%20INIT%20SCREENS/1.png)
 ![Image 2](DOCKER%20INIT%20SCREENS/2.png)
 ![Image 3](DOCKER%20INIT%20SCREENS/3.png)
 
-```bash
-docker-compose up --build
-```
+
 
 ## 📝 Utilisation
 
@@ -78,11 +80,21 @@ docker-compose logs
 ## 📂 Structure du Projet
 
 ```
+📂 Structure du Projet
+
 .
+├── db-scripts/
+├── dist/
+├── DOCKER INIT SCREENS/
+├── node_modules/
 ├── src/
+│   ├── config/
+│   │   └── db.ts
 │   ├── controllers/
 │   │   ├── beers.ts
 │   │   └── breweries.ts
+│   ├── docs/
+│   │   └── swagger.ts
 │   ├── models/
 │   │   ├── beers.ts
 │   │   └── breweries.ts
@@ -91,15 +103,14 @@ docker-compose logs
 │   │   └── breweries.ts
 │   ├── app.ts
 │   └── server.ts
-├── db-scripts/
-│   ├── 1-CREATE-tables.sql
-│   ├── 2-CREATE-functions.sql
-│   ├── 3-CREATE-triggers.sql
-│   └── 4-INSERT-fixtures.sql
-├── docker-compose.yml
+├── SWAGGER TUTO/
+├── tuto/
 ├── .env
-├── .env.example
-├── nodemon.json
+├── .gitignore
+├── api.js
+├── docker-compose.yml
+├── dockerfile
+├── package-lock.json
 ├── package.json
 ├── README.md
 └── tsconfig.json
